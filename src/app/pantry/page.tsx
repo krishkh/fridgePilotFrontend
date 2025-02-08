@@ -27,6 +27,7 @@ const PantryPage: NextPage = () => {
   // New API functions
   const addItemToBackend = async (item: PantryItem) => {
     const userId = localStorage.getItem("user_id");
+    console.log(userId);
     await fetch(`${baseUrl}/pantry/add-item?user_id=${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -168,9 +169,9 @@ const PantryPage: NextPage = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="grid gap-4">
           <AnimatePresence>
-            {filteredItems.map((item) => (
+            {filteredItems.map((item, index) => (
               <motion.div
-                key={item.id}
+                key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -245,7 +246,6 @@ const PantryPage: NextPage = () => {
         onClose={() => {
           setIsModalOpen(false);
           setEditingItem(null);
-          window.location.reload();
         }}
         onSave={handleAddEdit}
       />

@@ -1,10 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  X,
-  Save,
-} from "lucide-react";
+import { X, Save } from "lucide-react";
 
 interface PantryItem {
   id: string;
@@ -30,7 +27,7 @@ const EditModal: React.FC<EditModalProps> = ({
   onClose,
   onSave,
 }) => {
-  const[autoExpiry, setAutoExpiry] = useState(false);
+  const [autoExpiry, setAutoExpiry] = useState(false);
   const [formData, setFormData] = useState<PantryItem>(
     item || {
       id: Date.now().toString(),
@@ -52,6 +49,16 @@ const EditModal: React.FC<EditModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSave(formData);
+    setFormData({
+      id: Date.now().toString(),
+      name: "",
+      quantity: 1,
+      unit: "pieces",
+      category: "general",
+      expiryDate: "Auto",
+      addedDate: new Date().toISOString().split("T")[0],
+      notes: "No Note Set",
+    });
     onClose();
   };
 

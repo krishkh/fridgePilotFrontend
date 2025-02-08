@@ -90,11 +90,13 @@ const AuthPage: NextPage = () => {
       });
 
       const data = await response.json();
-
+      console.log(data);
+      console.log(response);
       if (response.ok) {
         if (isLogin) {
           localStorage.setItem("user_id", email);
           setSuccess(true);
+          toast.success("login Successful");
           router.push("/pantry");
         } else {
           setSuccess(true);
@@ -107,7 +109,7 @@ const AuthPage: NextPage = () => {
     } catch (err) {
       setError("Network error: " + err);
     }
-    console.error(error);
+    console.log(error);
     setIsLoading(false);
   };
 
